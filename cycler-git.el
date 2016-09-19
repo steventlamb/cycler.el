@@ -8,6 +8,11 @@
 (defun cycler/path-to-magit-buffer (path)
   (--> path (f-split it) (last it) (car it) (concat "*magit: " it "")))
 
+(defun cycler/switch-to-buffers (&rest buffers)
+  (--each buffers (progn
+                    (switch-to-buffer it)
+                    (other-window 1))))
+
 (defun cycler/magit-multi-status (repos)
   "Given a list of repository paths, open magit statuses for each."
   ; kill all magit buffers.
