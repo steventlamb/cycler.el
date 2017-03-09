@@ -1,7 +1,7 @@
 (source gnu)
 (source melpa)
 
-(package "cycler" "0.1.1" "Cycle through common buffer groups")
+(package "cycler" "0.1.2" "Cycle through common buffer groups")
 
 (files "cycler.el" "cycler-git.el")
 
