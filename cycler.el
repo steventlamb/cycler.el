@@ -40,8 +40,9 @@
   (interactive)
   (when (eq last-command 'cycler/cycle)
     (setq cycler/cycle (+ 1 cycler/cycle)))
-  (funcall (let* ((len (length cycler/def-included))
-                  (n (mod cycler/cycle len)))
-             (nth n cycler/def-included))))
+  (let* ((len (length cycler/def-included))
+         (n (mod cycler/cycle len))
+         (git-definition (nth n cycler/def-included)))
+    (if (symbolp git-definition) (funcall git-definition) (eval git-definition))))
 
 (provide 'cycler)
