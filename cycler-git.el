@@ -2,11 +2,8 @@
 (require 'f)
 (require 'cycler)
 
-;; required!
-(setq magit-status-buffer-name-format "*magit: %b*")
-
 (defun cycler/path-to-magit-buffer (path)
-  (--> path (f-split it) (last it) (car it) (concat "*magit: " it "")))
+  (--> path (f-split it) (last it) (car it) (concat "magit: " it "")))
 
 (defun cycler/switch-to-buffers (&rest buffers)
   (--each buffers (progn
@@ -18,12 +15,12 @@
   ; kill all magit buffers.
   (setq repos (-filter 'f-exists? repos))
   (-map 'kill-buffer (-filter 'cycler/is-magit-buffer? (buffer-list)))
-  (-filter (lambda (buffer-name) (s-starts-with? "*magit: " buffer-name)) (-map 'buffer-name (buffer-list)))
+  (-filter (lambda (buffer-name) (s-starts-with? "magit: " buffer-name)) (-map 'buffer-name (buffer-list)))
   (-each repos 'magit-status)
   (cycler/make-windows (length repos))
   (apply 'cycler/switch-to-buffers (-map 'cycler/path-to-magit-buffer repos)))
 
-(defun cycler/is-magit-buffer? (buffer) (s-starts-with? "*magit: " (buffer-name buffer)))
+(defun cycler/is-magit-buffer? (buffer) (s-starts-with? "magit: " (buffer-name buffer)))
 
 ;;;###autoload
 (defmacro cycler/defgit (name repos)
